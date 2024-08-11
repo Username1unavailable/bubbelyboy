@@ -15,7 +15,16 @@ const LoadingScreen = () => {
 
   return (
     <div style={{ textAlign: 'center', marginTop: '20px' }}>
-      <video id="loadingVideo" width="100%" autoPlay muted>
+      <video 
+        id="loadingVideo" 
+        width="100%" 
+        autoPlay 
+        muted 
+        playsInline 
+        disablePictureInPicture 
+        controls={false}  // Ensure no controls are shown
+        style={{ pointerEvents: 'none' }}  // Disable any user interaction
+      >
         <source src="./intro.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
