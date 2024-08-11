@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { auth } from '../ firebase';
 import { useNavigate } from 'react-router-dom';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
+import Navbar from './Navbar';
 
 const ProfileSettings = () => {
   const [username, setUsername] = useState('');
@@ -27,20 +28,23 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Profile Settings</h1>
-      <input 
-        type="text" 
-        placeholder="Enter your username" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
-      />
-      <button onClick={handleSave}>
-        Save Username
-      </button>
-      <button onClick={handleSignOut} style={{ marginLeft: '10px' }}>
-        Sign Out
-      </button>
+    <div>
+      <Navbar />
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h1>Profile Settings</h1>
+        <input 
+          type="text" 
+          placeholder="Enter your username" 
+          value={username} 
+          onChange={(e) => setUsername(e.target.value)} 
+        />
+        <button onClick={handleSave}>
+          Save Username
+        </button>
+        <button onClick={handleSignOut} style={{ marginLeft: '10px' }}>
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 };

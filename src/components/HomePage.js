@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../ firebase';
 import { useNavigate } from 'react-router-dom';
 import { getFirestore, doc, getDoc } from 'firebase/firestore';
+import Navbar from './Navbar';
 
 const HomePage = () => {
   const [username, setUsername] = useState('');
@@ -25,16 +26,12 @@ const HomePage = () => {
     fetchUsername();
   }, [db]);
 
-  const goToProfileSettings = () => {
-    navigate('/profile-settings');
-  };
-
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Hello {username}, welcome to Bubble</h1>
-      <button onClick={goToProfileSettings}>
-        Profile Settings
-      </button>
+    <div>
+      <Navbar />
+      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <h1>Hello {username}, welcome to Bubble</h1>
+      </div>
     </div>
   );
 };
