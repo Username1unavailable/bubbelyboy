@@ -9,7 +9,7 @@ const LandingPage = () => {
   const signInWithGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate('/home');
+      navigate('/loading');  // Navigate to the loading screen after login
     } catch (error) {
       console.error("Error signing in with Google:", error);
     }
