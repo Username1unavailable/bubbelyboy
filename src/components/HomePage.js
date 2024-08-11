@@ -1,22 +1,39 @@
-import React from 'react';
-import { auth, googleProvider } from '../ firebase';
+import React, { useEffect, useState } from 'react';
+import { auth } from '../ firebase';
 import { useNavigate } from 'react-router-dom';
-
+import { getFirestore, doc, getDoc } from 'firebase/firestore';
 
 const HomePage = () => {
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
+  const db = getFirestore();
 
-  const signOut = () => {
-    auth.signOut().then(() => {
-      navigate('/');
-    });
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setUsername(userData.username || user.email.split('@')[0]);
+        } else {
+          setUsername(user.email.split('@')[0]);
+        }
+      }
+    };
+
+    fetchUsername();
+  }, [db]);
+
+  const goToProfileSettings = () => {
+    navigate('/profile-settings');
   };
 
   return (
     <div style={{ textAlign: 'center', marginTop: '50px' }}>
-      <h1>Home Page</h1>
-      <button onClick={signOut}>
-        Sign Out
+      <h1>Hello {username}, welcome to Bubble</h1>
+      <button onClick={goToProfileSettings}>
+        Profile Settings
       </button>
     </div>
   );
