@@ -22,8 +22,8 @@ const LoadingScreen = () => {
         muted 
         playsInline 
         disablePictureInPicture 
-        controls={false}  // Ensure no controls are shown
-        style={{ pointerEvents: 'none' }}  // Disable any user interaction
+        controls={false}
+        style={{ pointerEvents: 'none' }}
       >
         <source src="./intro.mp4" type="video/mp4" />
         Your browser does not support the video tag.

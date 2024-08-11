@@ -10,7 +10,7 @@ const AuthCheck = () => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         if (location.pathname === '/' || location.pathname === '/loading') {
-          navigate('/home');  // Redirect only from the landing or loading pages
+          navigate('/loading');  // Redirect to loading screen first
         }
       } else {
         if (location.pathname !== '/') {
@@ -19,7 +19,7 @@ const AuthCheck = () => {
       }
     });
 
-    return () => unsubscribe();  // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, [navigate, location.pathname]);
 
   return null;  // This component does not render anything
