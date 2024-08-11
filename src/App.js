@@ -6,10 +6,12 @@ import ProfileSettings from './components/ProfileSettings';
 import LoadingScreen from './components/LoadingScreen';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
+import AuthCheck from './components/AuthCheck';
 
 function App() {
   return (
     <Router>
+      <AuthCheck />
       <Routes>
         <Route path="/" element={<PublicRoute component={LandingPage} />} />
         <Route path="/loading" element={<PrivateRoute component={LoadingScreen} />} />
