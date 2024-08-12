@@ -14,7 +14,7 @@ const LoadingScreen = () => {
   }, [navigate]);
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '20px' }}>
+    <div style={{ textAlign: 'center', marginTop: '0px' }}>
       <video 
         id="loadingVideo" 
         width="100%" 
