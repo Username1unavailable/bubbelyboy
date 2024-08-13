@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { auth, googleProvider } from '../../ firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { motion } from "framer-motion";
+
 
 const MainContent = () => {
   const [isHovered, setIsHovered] = useState(false);
@@ -44,6 +46,25 @@ const MainContent = () => {
       >
         Join Now
       </button>
+      <h1>
+      </h1>
+      
+      <img 
+          id="logoImage" 
+          src="./google.png" 
+          alt="Logo" 
+          width="150px" 
+          style={{ pointerEvents: 'none', marginTop:'0px' }}
+        />
+
+        <img 
+          id="logoImage" 
+          src="./app1.png" 
+          alt="Logo" 
+          width="150px" 
+          style={{ pointerEvents: 'none', marginLeft:'10px'}}
+          
+        />
     </div>
   );
 };
