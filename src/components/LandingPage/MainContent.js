@@ -1,16 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { auth, googleProvider } from '../../ firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
+// Animation variants for motion
+const containerVariants = {
+  hidden: { opacity: 0, y: -50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 120, delay: 0.2 },
+  },
+};
+
+const buttonVariants = {
+  hover: {
+    scale: 1.1,
+    backgroundColor: '#fff',
+    color: '#0000FF',
+    outline: '2px solid #0000FF',
+    transition: {
+      duration: 0.3,
+      yoyo: Infinity,
+    },
+  },
+};
+
+const imageVariants = {
+  initial: { y: 0 },
+  animate: {
+    y: [0, -10, 0],
+    transition: { duration: 4, repeat: Infinity },
+  },
+};
 
 const MainContent = () => {
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const canvasRef = useRef(null);
-
- 
 
   const signInWithGoogle = async () => {
     try {
@@ -22,50 +49,52 @@ const MainContent = () => {
   };
 
   return (
-    
-    <div style={styles.container}>
-      <canvas ref={canvasRef} style={styles.canvas}></canvas>
-      <p style={styles.subtitle}>Bring Everyone Back Together</p>
-      <h1 style={styles.title}>
-      Where content creators share <br />
-      memorable moments with friends.
-        <img src={'./scribble.png'} alt="Scribble" style={styles.scribble} />
-      </h1>
-      <h1>
-      </h1>
-      <button
-        style={{
-          ...styles.button,
-          backgroundColor: isHovered ? '#fff' : '#0000FF',
-          color: isHovered ? '#0000FF' : '#fff',
-          outline: isHovered ? '2px solid #0000FF' : 'none',
-        }}
+    <motion.div
+      style={styles.container}
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
+    >
+      <motion.p style={styles.subtitle} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.5 } }}>
+        Bring Everyone Back Together
+      </motion.p>
+      
+      <motion.h1 style={styles.title} initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.8 } }}>
+        Where content creators share <br />
+        memorable moments with friends.
+         <img src={'./scribble.png'} alt="Scribble" style={styles.scribble} />
+      </motion.h1>
+      <h1></h1>
+      <motion.button
+        style={styles.button}
         onClick={signInWithGoogle}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        variants={buttonVariants}
+        whileHover="hover"
       >
         Join Now
-      </button>
-      <h1>
-      </h1>
-      
-      <img 
-          id="logoImage" 
-          src="./google.png" 
-          alt="Logo" 
-          width="150px" 
-          style={{ pointerEvents: 'none', marginTop:'0px' }}
-        />
+      </motion.button>
 
-        <img 
-          id="logoImage" 
-          src="./app1.png" 
-          alt="Logo" 
-          width="150px" 
-          style={{ pointerEvents: 'none', marginLeft:'10px'}}
-          
+      <motion.div style={styles.logoContainer}>
+        <motion.img
+          src="./google.png"
+          alt="Google"
+          width="150px"
+          style={styles.logo}
+          variants={imageVariants}
+          initial="initial"
+          animate="animate"
         />
-    </div>
+        <motion.img
+          src="./app1.png"
+          alt="App"
+          width="150px"
+          style={{ ...styles.logo, marginLeft: '10px' }}
+          variants={imageVariants}
+          initial="initial"
+          animate="animate"
+        />
+      </motion.div>
+    </motion.div>
   );
 };
 
@@ -76,27 +105,19 @@ const styles = {
     position: 'relative',
     overflow: 'hidden',
   },
-  canvas: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    zIndex: -1,
-    width: '100%',
-    height: '100%',
-  },
   subtitle: {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '18px',
     color: '#3A45F3',
     fontWeight: 'bold',
     marginBottom: '0px',
-    transform: 'translatey(70%)',
+    transform: 'translateY(70%)',
   },
   title: {
     fontFamily: 'Roboto, sans-serif',
     fontSize: '48px',
     color: '#000',
-    fontWeight: 'Normal',
+    fontWeight: 'normal',
     lineHeight: '1.2',
     position: 'relative',
     display: 'inline-block',
@@ -110,17 +131,25 @@ const styles = {
     height: '23.31px',
   },
   button: {
-    marginTop: '0px',
+    marginTop: '-40px',
     padding: '20px 60px',
     backgroundColor: '#0000FF',
-    transform: 'translatey(-50%)',
     color: '#fff',
     border: 'none',
     borderRadius: '24px',
     fontSize: '24px',
     cursor: 'pointer',
-    fontWeight: 'Medium',
+    fontWeight: 'medium',
     transition: 'all 0.3s ease',
+  },
+  logoContainer: {
+    marginTop: '30px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    pointerEvents: 'none',
   },
 };
 
