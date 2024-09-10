@@ -1,20 +1,29 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const ScrollToLearnMore = () => {
   return (
     <div style={styles.container}>
-      <div style={styles.textContainer}>
+      <motion.div
+        style={styles.textContainer}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0, transition: { delay: 0.3, duration: 0.8 } }}
+      >
         <h2 style={styles.text}>SCROLL TO LEARN MORE</h2>
-        <img 
-          src="./Arrow.png" 
-          alt="Scroll down" 
+        <img
+          src="./Arrow.png"
+          alt="Scroll down"
           style={styles.squigglyImage}
+         
         />
-      </div>
-      <img 
-        src="./group.png" 
-        alt="Profile pics" 
+      </motion.div>
+
+      <motion.img
+        src="./group.png"
+        alt="Profile pics"
         style={styles.profileImages}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0, transition: { delay: 0.6, duration: 0.8 } }}
       />
     </div>
   );
@@ -24,8 +33,6 @@ const styles = {
   container: {
     textAlign: 'center',
     position: 'relative',
-    
-
   },
   textContainer: {
     position: 'relative',
@@ -40,7 +47,7 @@ const styles = {
   squigglyImage: {
     width: '100px', // Adjust size as needed
     margin: '0 auto',
-    marginBottom:'100px',
+    marginBottom: '100px',
   },
   profileImages: {
     position: 'absolute',
