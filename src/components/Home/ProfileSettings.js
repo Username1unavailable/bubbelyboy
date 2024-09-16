@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { auth } from '../ firebase';
+import { auth } from '../../ firebase';
 import { useNavigate } from 'react-router-dom';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import Navbar from './Navbar';
+import Navbar from '../Navbar';
 
 const ProfileSettings = () => {
   const [username, setUsername] = useState('');
@@ -29,7 +29,7 @@ const ProfileSettings = () => {
 
   return (
     <div>
-      <div style={{ textAlign: 'center', marginTop: '50px' }}>
+      <div style={{ textAlign: 'center', marginTop: '50px',marginLeft: 'calc(100vw * 71 / 480)', }}>
         <h1>Profile Settings</h1>
         <input 
           type="text" 

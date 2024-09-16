@@ -2,12 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import HomePage from './components/HomePage';
-import ProfileSettings from './components/ProfileSettings';
+import ProfileSettings from './components/Home/ProfileSettings';
 import LoadingScreen from './components/LoadingScreen';
 import PrivateRoute from './routes/PrivateRoute';
 import PublicRoute from './routes/PublicRoute';
 import AuthCheck from './components/AuthCheck';
 import Layout from './components/Layout';  // Import the Layout component
+import MessagesComponent from './components/Home/messages';
+import Savedposts from './components/Home/saved-posts';
+import bubbels from './components/Home/clubs';
+
+
 
 function App() {
   return (
@@ -22,6 +27,10 @@ function App() {
         <Route element={<PrivateRoute component={Layout} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
+          <Route path="/clubs" element={<bubbels />} />
+          <Route path="/messages" element={<MessagesComponent />} />
+          <Route path="/saved-posts" element={<Savedposts />} />
+          
         </Route>
       </Routes>
     </Router>
