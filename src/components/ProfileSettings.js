@@ -29,7 +29,6 @@ const ProfileSettings = () => {
 
   return (
     <div>
-      <Navbar />
       <div style={{ textAlign: 'center', marginTop: '50px' }}>
         <h1>Profile Settings</h1>
         <input 
