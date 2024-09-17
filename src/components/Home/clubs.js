@@ -1,6 +1,6 @@
 import React from 'react';
 
-const bubbels = () => {
+const Bubbels = () => {
   const containerStyle = {
     display: 'flex',
     justifyContent: 'center',
@@ -44,4 +44,4 @@ const bubbels = () => {
   );
 };
 
-export default bubbels;
+export default Bubbels;

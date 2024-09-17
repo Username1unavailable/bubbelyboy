@@ -10,7 +10,7 @@ import AuthCheck from './components/AuthCheck';
 import Layout from './components/Layout';  // Import the Layout component
 import MessagesComponent from './components/Home/messages';
 import Savedposts from './components/Home/saved-posts';
-import bubbels from './components/Home/clubs';
+import Bubbels from './components/Home/clubs';
 
 
 
@@ -27,7 +27,7 @@ function App() {
         <Route element={<PrivateRoute component={Layout} />}>
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
-          <Route path="/clubs" element={<bubbels />} />
+          <Route path="/clubs" element={<Bubbels />} />
           <Route path="/messages" element={<MessagesComponent />} />
           <Route path="/saved-posts" element={<Savedposts />} />
           
