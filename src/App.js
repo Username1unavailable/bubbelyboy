@@ -30,6 +30,8 @@ function App() {
           <Route path="/clubs" element={<Bubbels />} />
           <Route path="/messages" element={<MessagesComponent />} />
           <Route path="/saved-posts" element={<Savedposts />} />
+          <Route path="/messages/:chatId" element={<MessagesComponent />} />
+      
           
         </Route>
       </Routes>
