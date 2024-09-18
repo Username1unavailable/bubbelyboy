@@ -52,8 +52,8 @@ const MessagesComponent = () => {
   };
 
   return (
-    <div className="chat-container" style={{marginLeft: 'calc(100vw * 71 / 480)',}}>
-      <div className="chat-header">
+    <div className="chat-container" >
+      <div className="chat-header" >
         <h2>{chatUser}</h2>
       </div>
       <div className="messages-list">
