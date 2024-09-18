@@ -11,8 +11,7 @@ import Layout from './components/Layout';  // Import the Layout component
 import MessagesComponent from './components/Home/messages';
 import Savedposts from './components/Home/saved-posts';
 import Bubbels from './components/Home/clubs';
-
-
+import ChatsListComponent from './components/Home/ChatsListComponent'; // Add Chat list component
 
 function App() {
   return (
@@ -28,11 +27,20 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/clubs" element={<Bubbels />} />
-          <Route path="/messages" element={<MessagesComponent />} />
           <Route path="/saved-posts" element={<Savedposts />} />
-          <Route path="/messages/:chatId" element={<MessagesComponent />} />
-      
-          
+
+          {/* Chat routes - Chat list will always be visible */}
+          <Route 
+            path="/messages/*" 
+            element={
+              <div style={{ display: 'flex', height: '100vh' }}>
+                <ChatsListComponent />  {/* Chat list on the left */}
+                <Routes>
+                  <Route path=":chatId" element={<MessagesComponent />} />  {/* Chat window on the right */}
+                </Routes>
+              </div>
+            }
+          />
         </Route>
       </Routes>
     </Router>
