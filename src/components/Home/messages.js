@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { getFirestore, collection, addDoc, query, where, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, query, where, onSnapshot, doc, getDoc, orderBy } from 'firebase/firestore';
 import { auth } from '../../ firebase';
 import { useParams } from 'react-router-dom';
 import './Messages.css';  // Add a CSS file for styles
@@ -13,8 +13,12 @@ const MessagesComponent = () => {
   const chatRef = useRef(null);  // Reference to the chat container for auto-scrolling
 
   useEffect(() => {
-    // Listen to messages in the current chat
-    const messagesQuery = query(collection(db, `chats/${chatId}/messages`));
+    // Listen to messages in the current chat and order them by timestamp
+    const messagesQuery = query(
+      collection(db, `chats/${chatId}/messages`),
+      orderBy('timestamp', 'asc')  // Order messages by timestamp in ascending order
+    );
+
     const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
       const messagesList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setMessages(messagesList);
@@ -52,8 +56,8 @@ const MessagesComponent = () => {
   };
 
   return (
-    <div className="chat-container" >
-      <div className="chat-header" >
+    <div className="chat-container">
+      <div className="chat-header">
         <h2>{chatUser}</h2>
       </div>
       <div className="messages-list">
