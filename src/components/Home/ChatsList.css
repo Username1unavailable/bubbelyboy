@@ -4,18 +4,20 @@
     padding: 10px;
     overflow-y: auto;
     height: 100vh;
-    margin-left: calc(100vw * 83 / 480);
+    margin-left: calc(100vw * 90 / 480);
   }
   
   .chats-list {
     list-style-type: none;
     padding: 0;
+    
   }
   
   .chat-item {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
+    
   }
   
   .chat-item:hover {

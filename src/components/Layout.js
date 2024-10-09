@@ -11,9 +11,10 @@ const Layout = () => {
   };
 
   const mainContentStyle = {
-    padding: '20px',
+   
     flex: 1,           // Take up remaining space after the Navbar
-    overflowY: 'auto', // Allow the main content to scroll
+    overflowY: 'auto',
+   // Allow the main content to scroll
   };
 
   return (
