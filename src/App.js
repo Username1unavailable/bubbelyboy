@@ -12,6 +12,10 @@ import MessagesComponent from './components/Home/messages';
 import Savedposts from './components/Home/saved-posts';
 import Bubbels from './components/Home/clubs';
 import ChatsListComponent from './components/Home/ChatsListComponent'; // Add Chat list component
+import UserPage from './components/Home/UserPage';
+
+
+
 
 function App() {
   return (
@@ -28,7 +32,7 @@ function App() {
           <Route path="/profile-settings" element={<ProfileSettings />} />
           <Route path="/clubs" element={<Bubbels />} />
           <Route path="/saved-posts" element={<Savedposts />} />
-
+          <Route path="/user-page" element={<UserPage />} />
           {/* Chat routes - Chat list will always be visible */}
           <Route 
             path="/messages/*" 

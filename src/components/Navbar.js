@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { auth } from '../ firebase';
 
 // Dynamically load the Nunito font from Google Fonts
 const fontLink = document.createElement('link');
@@ -9,6 +10,7 @@ document.head.appendChild(fontLink);
 
 const Navbar = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [userData, setUserData] = useState({ username: '', email: '', profilePic: '../assets/default-profile.png' });
   const location = useLocation(); // Get current route path
 
   // Function to check window width and set "isMobile" state
@@ -25,6 +27,22 @@ const Navbar = () => {
 
     // Cleanup the event listener on component unmount
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+  useEffect(() => {
+    const fetchUserData = () => {
+      const user = auth.currentUser;
+      if (user) {
+        const fallbackUsername = user.email.split('@')[0];
+        setUserData({
+          username: user.displayName || fallbackUsername,
+          email: user.email,
+          profilePic: user.photoURL || '../assets/default-profile.png',
+        });
+      }
+    };
+    fetchUserData();
   }, []);
 
   const sidebarStyle = {
@@ -210,6 +228,42 @@ const Navbar = () => {
           {!isMobile && <Link to="/profile-settings" style={linkStyle("/profile-settings")}>Settings</Link>}
         </div>
         </Link>
+
+
+
+
+
+
+
+
+        <Link to="/user-page" style={{ textDecoration: 'none', paddingTop: '80px' }}>
+          <div
+            style={navbarItemStyle}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#fff')}
+          >
+            <img
+              src={userData.profilePic}
+              alt="Profile"
+              style={{
+                width:"45px",
+                height:"45px",
+                borderRadius: '50%',
+                marginRight: isMobile ? '0' : '10px',
+              }}
+            />
+            {!isMobile && (
+              <div style={{ textAlign: 'center' }}>
+                <div style={{ fontWeight: 'bold', color: 'black' }}>{userData.username}</div>
+                <div style={{ color: '#6b6b6b' }}>@{userData.email.split('@')[0]}</div>
+              </div>
+            )}
+          </div>
+        </Link>
+
+
+
+
       </div>
     </div>
   );
