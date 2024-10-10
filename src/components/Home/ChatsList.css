@@ -1,26 +1,27 @@
 .chats-list-container {
-    width: calc(100vw * 4 / 4);
-    background-color: #f5f5f5;
-    padding: 10px;
-    overflow-y: auto;
-    height: 100vh;
-    margin-left: calc(100vw * 90 / 480);
-  }
-  
-  .chats-list {
+  width: calc(100vw * 4 / 4);
+  background-color: #f5f5f5;
+  padding: 10px;
+  overflow-y: auto;
+  height: 100vh;
+  margin-left: calc(100vw * 90 / 480);
+}
+
+
+
+.chats-list {
     list-style-type: none;
     padding: 0;
     
-  }
-  
-  .chat-item {
+}
+
+.chat-item {
     padding: 10px;
     border-bottom: 1px solid #ddd;
     cursor: pointer;
     
-  }
-  
-  .chat-item:hover {
+}
+
+.chat-item:hover {
     background-color: #eaeaea;
-  }
-  
+}

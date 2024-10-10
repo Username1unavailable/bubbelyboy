@@ -2,31 +2,27 @@ import React, { useEffect, useState, useRef } from 'react';
 import { getFirestore, collection, addDoc, query, where, onSnapshot, doc, getDoc, orderBy } from 'firebase/firestore';
 import { auth } from '../../ firebase';
 import { useParams } from 'react-router-dom';
-import './Messages.css';  // Add a CSS file for styles
+import './Messages.css';
 
-const MessagesComponent = () => {
-  const { chatId } = useParams();  // Get the chatId from the URL params
+const MessagesComponent = ({ chatId, onExit }) => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
-  const [chatUser, setChatUser] = useState('');  // To store the chat recipient's name
+  const [chatUser, setChatUser] = useState('');
   const db = getFirestore();
-  const chatRef = useRef(null);  // Reference to the chat container for auto-scrolling
+  const chatRef = useRef(null);
 
   useEffect(() => {
-    // Listen to messages in the current chat and order them by timestamp
     const messagesQuery = query(
       collection(db, `chats/${chatId}/messages`),
-      orderBy('timestamp', 'asc')  // Order messages by timestamp in ascending order
+      orderBy('timestamp', 'asc')
     );
 
     const unsubscribe = onSnapshot(messagesQuery, (snapshot) => {
       const messagesList = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setMessages(messagesList);
-      // Scroll to the bottom when a new message arrives
       chatRef.current?.scrollIntoView({ behavior: 'smooth' });
     });
 
-    // Fetch chat participant's name
     const fetchChatUser = async () => {
       const chatDoc = await getDoc(doc(db, 'chats', chatId));
       if (chatDoc.exists()) {
@@ -51,7 +47,7 @@ const MessagesComponent = () => {
         senderId: user.uid,
         timestamp: new Date(),
       });
-      setNewMessage('');  // Clear input
+      setNewMessage('');
     }
   };
 
@@ -59,6 +55,7 @@ const MessagesComponent = () => {
     <div className="chat-container">
       <div className="chat-header">
         <h2>{chatUser}</h2>
+        <button onClick={onExit} className="exit-button">Exit</button>
       </div>
       <div className="messages-list">
         {messages.map((message) => (
@@ -69,7 +66,7 @@ const MessagesComponent = () => {
             {message.text}
           </div>
         ))}
-        <div ref={chatRef} />  {/* Auto scroll reference */}
+        <div ref={chatRef} />
       </div>
       <div className="message-input-container">
         <input

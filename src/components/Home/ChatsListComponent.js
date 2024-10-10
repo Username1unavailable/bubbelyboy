@@ -3,9 +3,11 @@ import { getFirestore, collection, query, where, onSnapshot, getDoc, doc } from 
 import { auth } from '../../ firebase';
 import { useNavigate } from 'react-router-dom';
 import './ChatsList.css';  // Add a CSS file for styles
+import MessagesComponent from './messages'; // Import MessagesComponent
 
 const ChatsListComponent = () => {
   const [chats, setChats] = useState([]);
+  const [activeChatId, setActiveChatId] = useState(null); // State to track the active chat
   const navigate = useNavigate();
   const db = getFirestore();
 
@@ -19,19 +21,33 @@ const ChatsListComponent = () => {
     return () => unsubscribe();
   }, [db]);
 
+  const handleChatClick = (chatId) => {
+    setActiveChatId(chatId); // Set the active chat ID
+  };
+
+  const handleExit = () => {
+    setActiveChatId(null); // Reset active chat ID to close the chat
+  };
+
   return (
     <div className="chats-list-container">
-      <h2>Chats</h2>
-      <ul className="chats-list">
-        {chats.map((chat) => (
-          <li key={chat.id} className="chat-item" onClick={() => navigate(`/messages/${chat.id}`)}>
-            {/* Show only the name for now */}
-            {chat.participants.filter((uid) => uid !== auth.currentUser.uid).map((uid) => (
-              <ChatUserName key={uid} uid={uid} />
+      {activeChatId ? (
+        <MessagesComponent chatId={activeChatId} onExit={handleExit} /> // Render MessagesComponent if active chat
+      ) : (
+        <>
+          <h2>Chats</h2>
+          <ul className="chats-list">
+            {chats.map((chat) => (
+              <li key={chat.id} className="chat-item" onClick={() => handleChatClick(chat.id)}>
+                {/* Show only the name for now */}
+                {chat.participants.filter((uid) => uid !== auth.currentUser.uid).map((uid) => (
+                  <ChatUserName key={uid} uid={uid} />
+                ))}
+              </li>
             ))}
-          </li>
-        ))}
-      </ul>
+          </ul>
+        </>
+      )}
     </div>
   );
 };
