@@ -236,7 +236,7 @@ const Navbar = () => {
 
 
 
-        <Link to="/user-page" style={{ textDecoration: 'none', paddingTop: '80px' }}>
+        <Link to={`/user-page/${userData.email.split('@')[0]}`} style={{ textDecoration: 'none' }}>
           <div
             style={navbarItemStyle}
             onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#e0e0e0')}
@@ -246,8 +246,8 @@ const Navbar = () => {
               src={userData.profilePic}
               alt="Profile"
               style={{
-                width:"45px",
-                height:"45px",
+                width: "45px",
+                height: "45px",
                 borderRadius: '50%',
                 marginRight: isMobile ? '0' : '10px',
               }}
